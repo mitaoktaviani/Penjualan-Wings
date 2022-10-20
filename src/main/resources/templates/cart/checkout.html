@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (${breadCrumbs}) }"></header>
+<main>
+    <div class="grid-container shop-index" >
+
+        <table>
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+
+                <th>Total</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product: ${product}" >
+
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.quantity}"></td>
+
+                <td th:text="${#numbers.formatCurrency(product.subTotal)}"></td>
+
+            </tr>
+
+            <tr>
+                <td><span>TOTAL</span></td>
+                <td></td>
+                <td th:text="${#numbers.formatCurrency(total)}"></td>
+            </tr>
+
+            <tr>
+                <button class="blue-button">
+                    <a th:href="@{/cart/confirm}">Confirm</a>
+                </button>
+            </tr>
+            </tbody>
+
+
+
+        </table>
+    </div>
+</main>
+
+</body>
+
+</html>

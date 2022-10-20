@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (${breadCrumbs}) }"></header>
+<main>
+    <div class="grid-container shop-index" >
+
+        <table>
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th></th>
+                <th>Price</th>
+                <th>Discount Price</th>
+                <th>Total</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product: ${cart}" >
+
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.quantity}"></td>
+                <td>
+                    <a th:href="@{/cart/buy(productCode=${product.productCode})}" class="blue-button delete-button">+ 1</a>
+
+                    <a th:href="@{/cart/delete(productCode=${product.productCode})}" class="blue-button delete-button">- 1</a>
+
+                </td>
+
+                <td th:text="${#numbers.formatCurrency(product.price)}"></td>
+                <td th:text="${#numbers.formatCurrency(product.discountPrice)}"></td>
+                <td th:text="${#numbers.formatCurrency(product.subTotal)}"></td>
+
+            </tr>
+            <tr>
+                <button class="blue-button">
+                    <a th:href="@{/cart/checkOut}">Check Out</a>
+                </button>
+            </tr>
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a th:each="loop : ${#numbers.sequence(1,totalPages)}"
+                               th:href="@{/cart/list(page=${loop})}"
+                               th:text="${loop}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+
+
+        </table>
+    </div>
+</main>
+
+</body>
+
+</html>

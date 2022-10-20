@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (${breadCrumbs}) }"></header>
+<main>
+    <div class="grid-tiles product-index">
+    <form method="get" class="filter" th:attr="action=@{/product/list}">
+        <input type="text" name="productName" placeholder="Product Name..." th:attr="value=${productName}">
+        <button class="blue-button" type="submit">Search</button>
+        <br><br>
+        <a sec:authorize="hasAuthority('Admin')" class="blue-button create-button" th:href="@{/product/upsertForm}">Insert New Product</a>
+    </form>
+
+        <div class="tiles-container">
+            <div class="tile" th:each="product : ${grid}" th:object="${product}">
+                <div class="name" th:text="*{productName}"></div>
+                <div class="image-container" th:if="*{imagePath == null}">
+                    <img th:src="@{/resources/image/product/no-image.jpg}">
+                </div>
+                <div class="image-container" th:if="*{imagePath != null}">
+                    <img th:src="@{/resources/image/product/{path}(path=*{imagePath})}">
+                </div>
+                <div class="button-wrapper">
+                    <a sec:authorize="hasAuthority('Admin')" th:href="@{/product/upsertForm(productCode=*{productCode})}" class="blue-button update-button">EDIT</a>
+                    <a sec:authorize="hasAuthority('Admin')" th:href="@{/product/delete(productCode=*{productCode})}" class="blue-button delete-button">DELETE</a>
+                    <a sec:authorize="hasAuthority('Customer')" th:href="@{/product/detail(productCode=*{productCode})}" class="blue-button delete-button">DETAIL</a>
+                    <a sec:authorize="hasAuthority('Customer')" th:href="@{/product/buy(productCode=*{productCode})}" class="blue-button delete-button">BUY</a>
+
+
+                </div>
+                <s th:if="*{discount != null}"><div class="price" th:text="*{#numbers.formatCurrency(price)}"></div></s>
+                <div th:if="*{discount != null}" class="price" th:text="*{#numbers.formatCurrency(discount)}"></div>
+                <div th:if="*{discount == null}" class="price" th:text="*{#numbers.formatCurrency(price)}"></div>
+            </div>
+        </div>
+
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a  th:each="loop : ${#numbers.sequence(1, totalPages)}"
+                                th:href="@{/product/list(productName=${productName},
+                                        page=${loop})}"
+                                th:text="${loop}"></a>
+                        </div>
+                    </div>
+
+    </div>
+</main>
+
+</body>
+
+</html>
