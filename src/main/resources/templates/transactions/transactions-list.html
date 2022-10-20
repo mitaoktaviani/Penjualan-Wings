@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (${breadCrumbs}) }"></header>
+<main>
+    <div class="grid-container shop-index" >
+
+        <table>
+            <thead>
+            <tr>
+                <th>Transaction</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Date</th>
+
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${transactions.size() == 0}">
+                <td colspan="5">No Data Found</td>
+            </tr>
+            <tr th:each="product: ${transactions}" >
+
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.product}"></td>
+                <td th:text="${product.quantity}"></td>
+
+                <td th:text="${#numbers.formatCurrency(product.total)}"></td>
+                <td th:text="${#temporals.format(product.date, 'dd-MM-yyyy')}"></td>
+
+
+
+            </tr>
+            </tbody>
+
+            <tfoot>
+            <tr th:if="${transactions.size() != 0}">
+                <td colspan="5">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a th:each="loop : ${#numbers.sequence(1,totalPages)}"
+                               th:href="@{/report/list(page=${loop})}"
+                               th:text="${loop}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+
+
+        </table>
+    </div>
+</main>
+
+</body>
+
+</html>

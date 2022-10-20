@@ -9,8 +9,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter @Setter @Data
 public class ReportDTO {
-    private String documentNumber;
-    private String documentCode;
+    private String id;
     private BigDecimal total;
     private LocalDate date;
+    private String username;
+    private String product;
+    private Long quantity;
+
+
 }

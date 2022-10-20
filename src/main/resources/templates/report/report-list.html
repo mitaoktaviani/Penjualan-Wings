@@ -10,53 +10,44 @@
         <table>
             <thead>
             <tr>
-                <th>Product Name</th>
+                <th>Transaction</th>
+                <th>User</th>
+                <th>Product</th>
                 <th>Quantity</th>
-                <th></th>
-                <th>Price</th>
-                <th>Discount Price</th>
                 <th>Total</th>
+                <th>Date</th>
+
 
             </tr>
             </thead>
 
             <tbody>
-
-            <tr th:if="${cart.size() == 0}">
+            <tr th:if="${report.size() == 0}">
                 <td colspan="6">No Data Found</td>
             </tr>
-            <tr th:each="product: ${cart}" >
+            <tr th:each="product: ${report}" >
 
-                <td th:text="${product.productName}"></td>
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.username}"></td>
+                <td th:text="${product.product}"></td>
                 <td th:text="${product.quantity}"></td>
-                <td>
-                    <a th:href="@{/cart/buy(productCode=${product.productCode})}" class="blue-button delete-button">+ 1</a>
 
-                    <a th:href="@{/cart/delete(productCode=${product.productCode})}" class="blue-button delete-button">- 1</a>
+                <td th:text="${#numbers.formatCurrency(product.total)}"></td>
+                <td th:text="${#temporals.format(product.date, 'dd-MM-yyyy')}"></td>
 
-                </td>
 
-                <td th:text="${#numbers.formatCurrency(product.price)}"></td>
-                <td th:text="${#numbers.formatCurrency(product.discountPrice)}"></td>
-                <td th:text="${#numbers.formatCurrency(product.subTotal)}"></td>
 
-            </tr>
-            <tr>
-                <button class="blue-button">
-                    <a th:href="@{/cart/checkOut}">Check Out</a>
-                </button>
             </tr>
             </tbody>
 
             <tfoot>
-
-            <tr th:if="${cart.size() != 0}">
+            <tr th:if="${report.size() != 0}">
                 <td colspan="6">
                     <div class="pagination">
                         <div th:text="|page ${currentPage} of ${totalPages}|"></div>
                         <div>
                             <a th:each="loop : ${#numbers.sequence(1,totalPages)}"
-                               th:href="@{/cart/list(page=${loop})}"
+                               th:href="@{/report/list(page=${loop})}"
                                th:text="${loop}"></a>
                         </div>
                     </div>
