@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter @Data
-public class ReportDTO {
+public class  ReportDTO {
     private String id;
     private BigDecimal total;
     private LocalDate date;

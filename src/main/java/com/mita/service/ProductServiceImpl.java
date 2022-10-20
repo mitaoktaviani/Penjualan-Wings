@@ -126,29 +126,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public TransactionDetail buyProduct(String productCode, String username) {
-        Optional<Account> theAccount = accountRepository.findById(username);
-        Account account = null;
-        if(theAccount.isPresent()){
-            account = theAccount.get();
-        }
-
-        Optional<Product> theProduct = productRepository.findById(productCode);
-        Product product = null;
-        if(theProduct.isPresent()){
-            product = theProduct.get();
-        }
-
-        TransactionHeader transactionHeader = new TransactionHeader(
-
-        );
-
-        TransactionDetail transactionDetail = new TransactionDetail();
-
-        return null;
-    }
-
-    @Override
     public void addToCart(String productCode) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Account account = accountRepository.findById(username).get();

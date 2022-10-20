@@ -23,7 +23,5 @@ public interface ProductService {
 
     ProductGridDTO getProduct(String productCode);
 
-    TransactionDetail buyProduct(String productCode, String username);
-
     void addToCart(String productCode);
 }
