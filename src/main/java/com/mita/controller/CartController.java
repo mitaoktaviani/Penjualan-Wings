@@ -35,7 +35,6 @@ public class CartController {
 
         long totalPages = accountService.getTotalPages(username);
 
-        System.out.println(products);
 
         model.addAttribute("breadCrumbs", "Cart");
         model.addAttribute("cart",products);
@@ -88,7 +87,7 @@ public class CartController {
 
         transactionHeaderService.confirm();
 
-        return "redirect:/product/list";
+        return "redirect:/transactions/list";
     }
 
 }

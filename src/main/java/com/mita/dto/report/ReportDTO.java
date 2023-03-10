@@ -13,8 +13,8 @@ public class  ReportDTO {
     private BigDecimal total;
     private LocalDate date;
     private String username;
-    private String product;
-    private Long quantity;
+//    private String product;
+//    private Long quantity;
 
 
 }

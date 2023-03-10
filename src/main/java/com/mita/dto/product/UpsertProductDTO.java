@@ -1,6 +1,7 @@
 package com.mita.dto.product;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -24,4 +25,5 @@ public class UpsertProductDTO {
     @Size(max = 5, message = "Product unit max 5 characters")
     private String unit;
     private String imagePath;
+
 }

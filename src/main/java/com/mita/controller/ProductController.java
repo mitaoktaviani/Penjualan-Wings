@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,8 +28,6 @@ public class ProductController {
 
         List<ProductGridDTO> grid = productService.getAll(productName,page);
 
-        System.out.println(grid);
-
         long totalPages = productService.getTotalPages(productName);
 
         model.addAttribute("currentPage",page);
@@ -45,7 +44,6 @@ public class ProductController {
 
         ProductGridDTO product = productService.getProduct(productCode);
 
-        System.out.println(product);
 
         model.addAttribute("product",product);
         model.addAttribute("breadCrumbs","Product Detail");

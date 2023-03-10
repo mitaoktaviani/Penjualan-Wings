@@ -11,9 +11,10 @@
             <thead>
             <tr>
                 <th>Transaction</th>
+                <th></th>
                 <th>User</th>
-                <th>Product</th>
-                <th>Quantity</th>
+
+<!--                <th>Quantity</th>-->
                 <th>Total</th>
                 <th>Date</th>
 
@@ -28,10 +29,11 @@
             <tr th:each="product: ${report}" >
 
                 <td th:text="${product.id}"></td>
-                <td th:text="${product.username}"></td>
-                <td th:text="${product.product}"></td>
-                <td th:text="${product.quantity}"></td>
+                <td>
+                    <a th:href="@{/report/detail(id=${product.id})}" class="blue-button delete-button">Detail</a>
 
+                </td>
+                <td th:text="${product.username}"></td>
                 <td th:text="${#numbers.formatCurrency(product.total)}"></td>
                 <td th:text="${#temporals.format(product.date, 'dd-MM-yyyy')}"></td>
 

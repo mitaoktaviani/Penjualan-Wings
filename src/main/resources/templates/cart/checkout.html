@@ -33,18 +33,19 @@
                 <td></td>
                 <td th:text="${#numbers.formatCurrency(total)}"></td>
             </tr>
-
-            <tr>
-                <button class="blue-button">
-                    <a th:href="@{/cart/confirm}">Confirm</a>
-                </button>
-            </tr>
             </tbody>
 
 
 
         </table>
     </div>
+    <button class="blue-button">
+        <a th:href="@{/cart/confirm}">Confirm</a>
+    </button>
+
+    <button class="blue-button">
+        <a th:href="@{/cart/list}">Cancel</a>
+    </button>
 </main>
 
 </body>

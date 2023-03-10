@@ -1,6 +1,7 @@
 package com.mita.controller;
 
 import com.mita.dto.report.ReportDTO;
+import com.mita.dto.report.ReportDetailDTO;
 import com.mita.entity.TransactionDetail;
 import com.mita.entity.TransactionHeader;
 import com.mita.service.TransactionDetailService;
@@ -31,7 +32,6 @@ public class ReportController {
 
         List<ReportDTO> grid = transactionDetailService.getAll(page);
         for(ReportDTO value: grid){
-            System.out.println("report dto: "+value);
         }
 
         long totalPages = transactionDetailService.getTotalPages();
@@ -43,6 +43,33 @@ public class ReportController {
 
         return "report/report-list";
     }
+
+    @GetMapping("/detail")
+    public String detail(@RequestParam(required = true)String id,
+                         @RequestParam(defaultValue = "1")Integer page,
+                         Model model){
+
+
+        List<ReportDetailDTO> reportDetails = transactionDetailService.getReportDetail(id,page);
+
+        long totalPages = transactionDetailService.getTotalPage(id);
+
+
+        for (ReportDetailDTO rp:reportDetails) {
+
+        }
+
+
+        model.addAttribute("detail", reportDetails);
+        model.addAttribute("breadCrumbs",id + " Detail");
+        model.addAttribute("id",id);
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("currentPage", page);
+        return "report/report-detail";
+    }
+
+
+
 
 
 }

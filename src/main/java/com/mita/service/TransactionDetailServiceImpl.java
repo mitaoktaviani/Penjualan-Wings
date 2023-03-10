@@ -1,6 +1,7 @@
 package com.mita.service;
 
 import com.mita.dto.report.ReportDTO;
+import com.mita.dto.report.ReportDetailDTO;
 import com.mita.repository.TransactionDetailRepository;
 import com.mita.repository.TransactionHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class TransactionDetailServiceImpl implements TransactionDetailService{
 
     @Override
     public long getTotalPages() {
-        double totalData = (double)(transactionDetailRepository.count());
+        double totalData = (double)(transactionHeaderRepository.count());
         long totalPage = (long)(Math.ceil(totalData / rowsInPage));
         return totalPage;
     }
@@ -54,4 +55,40 @@ public class TransactionDetailServiceImpl implements TransactionDetailService{
         long totalPage = (long)(Math.ceil(totalData / rowsInPage));
         return totalPage;
     }
+
+    @Override
+    public List<ReportDetailDTO> getReportDetail(String id, Integer page) {
+
+        Pageable pagination = PageRequest.of(page-1, rowsInPage, Sort.by("id"));
+
+        List<ReportDetailDTO> dto = transactionDetailRepository.getReportDetail(id,pagination);
+
+        return dto;
+    }
+
+    @Override
+    public long getTotalPage(String id) {
+        double totalData = (double)(transactionDetailRepository.countDetail(id));
+        long totalPage = (long)(Math.ceil(totalData / rowsInPage));
+        return totalPage;
+    }
+
+    @Override
+    public List<ReportDetailDTO> getReportDetail(String username, String id, Integer page) {
+
+        Pageable pagination = PageRequest.of(page-1, rowsInPage, Sort.by("id"));
+
+        List<ReportDetailDTO> dto = transactionDetailRepository.getReportDetail(username,id,pagination);
+
+        return dto;
+    }
+
+    @Override
+    public long getTotalPage(String username, String id) {
+        double totalData = (double)(transactionDetailRepository.countDetail(username,id));
+        long totalPage = (long)(Math.ceil(totalData / rowsInPage));
+        return totalPage;
+    }
+
+
 }

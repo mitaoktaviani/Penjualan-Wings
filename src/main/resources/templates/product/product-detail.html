@@ -14,35 +14,39 @@
             <tr>
                 <td><label>Product Name</label></td>
                 <td>
-                    <label>[[*{productName}]]</label>
+                    <label>: [[*{productName}]]</label>
                     <input type="hidden" th:field="*{productName}"/>
                 </td>
             </tr>
             <tr>
                 <td><label>Price</label></td>
                 <td>
-                    <label>[[*{price}]]</label>
+                    <label>: [[*{#numbers.formatCurrency(price)}]]</label>
                     <s><input type="hidden" th:field="*{price}"/></s>
                 </td>
             </tr>
             <tr>
                 <td><label>Sale Price</label></td>
-                <td>
-                    <label>[[*{discount}]]</label>
-                    <input type="hidden" th:field="*{discount}"/>
+                <td th:if="*{discount} != null">
+                    <label>: [[*{#numbers.formatCurrency(discount)}]]</label>
+                    <s><input type="hidden" th:field="*{discount}"/></s>
+                </td>
+                <td th:if="*{discount} == null">
+                    <label>: [[*{#numbers.formatCurrency(price)}]]</label>
+                    <s><input type="hidden" th:field="*{price}"/></s>
                 </td>
             </tr>
             <tr>
                 <td><label>Dimension</label></td>
                 <td>
-                    <label>[[*{dimension}]]</label>
+                    <label>: [[*{dimension}]]</label>
                     <input type="hidden" th:field="*{dimension}"/>
                 </td>
             </tr>
             <tr>
                 <td><label>Unit</label></td>
                 <td>
-                    <label>[[*{unit}]]</label>
+                    <label>: [[*{unit}]]</label>
                     <input type="hidden" th:field="*{unit}"/>
                 </td>
             </tr>

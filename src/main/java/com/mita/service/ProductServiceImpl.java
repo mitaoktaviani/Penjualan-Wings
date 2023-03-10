@@ -24,7 +24,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    private final int rowsInPage = 5;
+    private final int rowsInPage = 10;
 
     @Autowired
     private ProductRepository productRepository;

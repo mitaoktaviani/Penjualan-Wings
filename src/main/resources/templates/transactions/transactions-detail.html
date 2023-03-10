@@ -5,35 +5,27 @@
 <nav th:replace="~{layout :: navigation}"></nav>
 <header th:replace="~{layout :: header (${breadCrumbs}) }"></header>
 <main>
-    <div class="grid-container shop-index" >
+    <div class="grid-container shop-index" th:object="${detail}">
 
         <table>
             <thead>
             <tr>
-                <th>Transaction</th>
-                <th></th>
-<!--                <th>Quantity</th>-->
-                <th>Total</th>
-                <th>Date</th>
-
-
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:if="${transactions.size() == 0}">
-                <td colspan="4">No Data Found</td>
+            <tr th:if="${detail.size() == 0}">
+                <td colspan="3">No Data Found</td>
             </tr>
-            <tr th:each="product: ${transactions}" >
+            <tr th:each="product: ${detail}" >
 
-                <td th:text="${product.id}"></td>
-                <td>
-                    <a th:href="@{/transactions/detail(id=${product.id})}" class="blue-button delete-button">Detail</a>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.quantity}"></td>
 
-                </td>
-
-                <td th:text="${#numbers.formatCurrency(product.total)}"></td>
-                <td th:text="${#temporals.format(product.date, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#numbers.formatCurrency(product.subTotal)}"></td>
 
 
 
@@ -41,13 +33,13 @@
             </tbody>
 
             <tfoot>
-            <tr th:if="${transactions.size() != 0}">
-                <td colspan="4">
+            <tr th:if="${detail.size() != 0}">
+                <td colspan="3">
                     <div class="pagination">
                         <div th:text="|page ${currentPage} of ${totalPages}|"></div>
                         <div>
                             <a th:each="loop : ${#numbers.sequence(1,totalPages)}"
-                               th:href="@{/transactions/list(page=${loop})}"
+                               th:href="@{/transactions/detail(page=${loop})}"
                                th:text="${loop}"></a>
                         </div>
                     </div>
@@ -58,6 +50,9 @@
 
         </table>
     </div>
+    <button class="blue-button">
+        <a th:href="@{/transactions/list}">Back To Transactions</a>
+    </button>
 </main>
 
 </body>
